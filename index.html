@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calcolo Preventivo da PDF — SAICAS</title>
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js"></script>
+  <script defer src="./script.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Calcolo Preventivo da PDF</h1>
+    <p class="sub">Carica un disegno tecnico (PDF) → estrazione → AI → preventivo.</p>
+  </header>
+
+  <section class="card">
+    <label class="file">
+      <input type="file" id="pdfInput" accept="application/pdf">
+      <span id="fileLabel">Scegli PDF…</span>
+    </label>
+
+    <div class="grid two">
+      <div>
+        <h3>Parametri</h3>
+        <div class="row">
+          <label>Materiale</label>
+          <select id="material">
+            <option value="AISI 304" selected>AISI 304</option>
+            <option value="S235">S235 (Ferro)</option>
+            <option value="Alluminio">Alluminio</option>
+          </select>
+        </div>
+        <div class="row">
+          <label>€/kg</label>
+          <input type="number" id="pricePerKg" value="11" step="0.01">
+        </div>
+        <div class="row">
+          <label>Costo uomo (€/h)</label>
+          <input type="number" id="hourlyRate" value="42" step="0.01">
+        </div>
+        <div class="row">
+          <label>Verniciatura (€/kg)</label>
+          <input type="number" id="paintPerKg" value="0" step="0.01">
+        </div>
+        <div class="row">
+          <label><input type="checkbox" id="applyPaint"> Applica verniciatura se presente</label>
+        </div>
+      </div>
+
+      <div>
+        <h3>Quantità</h3>
+        <div class="row">
+          <label>Lista quantità (virgola)</label>
+          <input type="text" id="quantities" value="1,10,50,100">
+        </div>
+        <div class="row">
+          <label><input type="checkbox" id="includeSetup" checked> Includi tempo setup (5 min) ammortizzato</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button id="analyzeBtn" disabled>Analizza PDF</button>
+      <button id="calcBtn" disabled>Calcola Preventivo</button>
+      <span id="status"></span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h3>Estratto dal PDF</h3>
+    <pre id="pdfPreview" class="scroll"></pre>
+  </section>
+
+  <section class="card">
+    <h3>Risultati</h3>
+    <div id="results"></div>
+  </section>
+
+  <footer>
+    <small>© 2025 SAICAS — Demo tecnica. Nessun dato viene conservato lato server.</small>
+  </footer>
+</body>
+</html>
